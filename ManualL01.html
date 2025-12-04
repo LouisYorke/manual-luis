@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Integral de Luis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; }
+        .section-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .section-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .card { background: white; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); padding: 1.5rem; margin-bottom: 1rem; border-left: 5px solid #cbd5e1; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .card-red { border-left-color: #ef4444; }
+        .card-green { border-left-color: #10b981; }
+        .card-blue { border-left-color: #3b82f6; }
+        .card-yellow { border-left-color: #f59e0b; }
+        .card-purple { border-left-color: #8b5cf6; }
+        .nav-item { cursor: pointer; border-radius: 8px; transition: all 0.2s; }
+        .nav-item:hover { background-color: #e2e8f0; }
+        .nav-item.active { background-color: #3b82f6; color: white; font-weight: 600; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5); }
+        .table-row { border-bottom: 1px solid #e2e8f0; }
+        .table-row:last-child { border-bottom: none; }
+        
+        /* Ajuste para scroll en móvil */
+        main { scroll-margin-top: 80px; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 h-screen flex flex-col md:flex-row overflow-hidden">
+
+    <!-- Header / Sidebar -->
+    <aside class="w-full md:w-72 bg-white shadow-xl z-50 flex flex-col flex-shrink-0 relative">
+        <div class="p-4 md:p-6 bg-blue-700 text-white flex justify-between items-center shadow-md">
+            <div>
+                <h1 class="text-xl md:text-2xl font-bold"><i class="fas fa-book-medical mr-2"></i>Manual TCC</h1>
+                <p class="text-xs opacity-80 mt-1 hidden md:block">Herramientas, Registros y Esquemas</p>
+            </div>
+            <button onclick="toggleMenu()" class="md:hidden text-white text-2xl focus:outline-none p-2">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav id="sidebar-nav" class="hidden md:block flex-1 overflow-y-auto p-4 space-y-2 bg-white absolute md:static w-full top-full shadow-xl md:shadow-none border-t md:border-none h-[calc(100vh-80px)] md:h-auto pb-20 md:pb-4">
+            <div onclick="showSection('inicio')" id="nav-inicio" class="nav-item active p-3 flex items-center"><i class="fas fa-map w-8 text-center"></i> Mapa: Enemigos vs Armas</div>
+            <div onclick="showSection('herramientas')" id="nav-herramientas" class="nav-item p-3 flex items-center"><i class="fas fa-tools w-8 text-center"></i> Caja de Herramientas</div>
+            <div onclick="showSection('esquemas')" id="nav-esquemas" class="nav-item p-3 flex items-center"><i class="fas fa-brain w-8 text-center"></i> Mis Esquemas (El Muro)</div>
+            <div onclick="showSection('distorsiones')" id="nav-distorsiones" class="nav-item p-3 flex items-center"><i class="fas fa-glasses w-8 text-center"></i> Distorsiones Cognitivas</div>
+            
+            <div class="p-4 mt-4 bg-gray-50 text-xs text-gray-500 text-center border-t md:block hidden">
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full relative" id="main-content">
+        
+        <!-- SECCIÓN 1: INICIO (MAPA) -->
+        <div id="inicio" class="section-content active">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Mapa de Intervención Rápida</h2>
+            <p class="text-sm md:text-base text-gray-600 mb-6">Identifica el problema (Enemigo) y usa la solución (Arma) correspondiente.</p>
+            
+            <!-- Versión Móvil de la Tabla -->
+            <div class="space-y-4 md:hidden">
+                 <div class="card border-l-4 border-red-500 p-4">
+                     <div class="font-bold text-red-700">Desorganizado / Caos</div>
+                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Calendario Semanal</div>
+                 </div>
+                 <div class="card border-l-4 border-red-500 p-4">
+                     <div class="font-bold text-red-700">Procrastinación</div>
+                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Lista diaria / Visual</div>
+                 </div>
+                 <div class="card border-l-4 border-red-500 p-4">
+                     <div class="font-bold text-red-700">No decir lo que siento</div>
+                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> DEPA, RAIN, RPD</div>
+                 </div>
+                 <div class="card border-l-4 border-red-500 p-4">
+                     <div class="font-bold text-red-700">Tareas Tediosas</div>
+                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Sándwich Conductual (Agradable-Tedioso-Agradable)</div>
+                 </div>
+                 <div class="card border-l-4 border-red-500 p-4">
+                     <div class="font-bold text-red-700">Ansiedad / Pánico</div>
+                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Ciclo STOP + Respiración</div>
+                 </div>
+            </div>
+
+            <!-- Tabla Desktop -->
+            <div class="hidden md:block bg-white rounded-lg shadow-lg overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-blue-600 text-white">
+                            <th class="p-4 w-1/2">EL ENEMIGO (Problema)</th>
+                            <th class="p-4 w-1/2">EL ARMA (Herramienta)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row bg-red-50 hover:bg-red-100"><td class="p-4 font-bold text-red-700">Desorganizado / Caos</td><td class="p-4 text-green-700 font-bold">Calendario Semanal</td></tr>
+                        <tr class="table-row hover:bg-gray-50"><td class="p-4 font-bold text-red-700">Procrastinación</td><td class="p-4 text-green-700 font-bold">Lista diaria / Organizador visual</td></tr>
+                        <tr class="table-row hover:bg-gray-50"><td class="p-4 font-bold text-red-700">Falta de concentración</td><td class="p-4 text-green-700 font-bold">Hora inicio + Tiempo duración (Timer)</td></tr>
+                        <tr class="table-row hover:bg-gray-50"><td class="p-4 font-bold text-red-700">Perderse en conversaciones</td><td class="p-4 text-green-700 font-bold">Técnica de escucha activa</td></tr>
+                        <tr class="table-row bg-red-50 hover:bg-red-100"><td class="p-4 font-bold text-red-700">No decir lo que siento</td><td class="p-4 text-green-700 font-bold">Técnicas: DEPA, RAIN, RPD</td></tr>
+                        <tr class="table-row hover:bg-gray-50"><td class="p-4 font-bold text-red-700">Tareas tediosas</td><td class="p-4 text-green-700 font-bold">Combinación Actividad Agradable + Desagradable + Agradable</td></tr>
+                        <tr class="table-row hover:bg-gray-50"><td class="p-4 font-bold text-red-700">Ansiedad / Pánico</td><td class="p-4 text-green-700 font-bold">Ciclo STOP + RPD + Respiración</td></tr>
+                        <tr class="table-row hover:bg-gray-50"><td class="p-4 font-bold text-red-700">Conflicto Interpersonal</td><td class="p-4 text-green-700 font-bold">Técnica del Sándwich / Semáforo</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: HERRAMIENTAS (COMPLETA) -->
+        <div id="herramientas" class="section-content">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Caja de Herramientas Completa</h2>
+
+            <!-- 1. Cuestionamiento Socrático -->
+            <div class="card card-yellow mb-6">
+                <h3 class="text-lg md:text-xl font-bold text-yellow-800 mb-2">1. Cuestionamiento Socrático (El Abogado del Diablo)</h3>
+                <p class="text-sm text-gray-700 mb-4"><strong>Objetivo:</strong> No decirte "eso es mentira", sino guiarte a descubrir por ti mismo si tu pensamiento es válido.</p>
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-yellow-50 p-4 rounded text-sm">
+                        <h4 class="font-bold text-yellow-900 mb-2">Las 6 Preguntas para el Debate:</h4>
+                        <ol class="list-decimal list-inside space-y-2">
+                            <li>¿Cuál es la <strong>evidencia</strong> de que el pensamiento es verdadero? ¿Y de que no lo es?</li>
+                            <li>¿Existe alguna <strong>otra explicación</strong> posible?</li>
+                            <li>¿Qué es <strong>lo peor</strong> que podría suceder? ¿Podría soportarlo?</li>
+                            <li>¿Cuál es el <strong>efecto</strong> de creer en este pensamiento? ¿Cuál sería el efecto de cambiarlo?</li>
+                            <li>¿Qué <strong>debo hacer</strong> al respecto?</li>
+                            <li>Si un amigo estuviera en esta situación, ¿qué le diría?</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Ciclo STOP y RPD -->
+            <div class="card card-green mb-6">
+                <h3 class="text-lg md:text-xl font-bold text-green-800 mb-2">2. Ciclo de Intervención (STOP & RPD)</h3>
+                <p class="text-sm text-gray-600 mb-3">Para detener el "Pensamiento Automatico" (PA) antes de que escale.</p>
+                <div class="space-y-3 text-sm">
+                    <div class="flex items-start bg-green-50 p-3 rounded">
+                        <div class="bg-green-600 text-white font-bold px-2 rounded mr-3">PA</div>
+                        <div><strong>Pensamiento Automatico:</strong> Detectar la frase exacta que te altera. <em>"Me van a atacar".</em></div>
+                    </div>
+                    <div class="flex items-start bg-red-50 p-3 rounded">
+                        <div class="bg-red-600 text-white font-bold px-2 rounded mr-3">STOP</div>
+                        <div><strong>Detenerse:</strong> Acción física o mental. Detectar la incomodidad corporal.</div>
+                    </div>
+                    <div class="flex items-start bg-blue-50 p-3 rounded">
+                        <div class="bg-blue-600 text-white font-bold px-2 rounded mr-3">RPD</div>
+                        <div><strong>Respuesta Racional:</strong><br>1. <strong>Evidencia:</strong> "He sobrevivido antes."<br>2. <strong>Permiso:</strong> "Tengo permiso de estar nervioso."</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. DEPA -->
+            <div class="card card-blue mb-6">
+                <h3 class="text-lg md:text-xl font-bold text-blue-800 mb-2">3. Técnica DEPA (Comunicación Asertiva)</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-center text-sm">
+                    <div class="bg-blue-50 p-2 rounded border border-blue-200"><strong class="text-lg block text-blue-700">D</strong>DESCRIBIR<br><span class="text-xs">Solo hechos.</span></div>
+                    <div class="bg-blue-50 p-2 rounded border border-blue-200"><strong class="text-lg block text-blue-700">E</strong>EXPRESAR<br><span class="text-xs">"Yo siento..."</span></div>
+                    <div class="bg-blue-50 p-2 rounded border border-blue-200"><strong class="text-lg block text-blue-700">P</strong>PEDIR<br><span class="text-xs">Cambio concreto.</span></div>
+                    <div class="bg-blue-50 p-2 rounded border border-blue-200"><strong class="text-lg block text-blue-700">A</strong>ACORDAR<br><span class="text-xs">Ganar-Ganar.</span></div>
+                </div>
+            </div>
+
+            <!-- 4. RAIN -->
+            <div class="card card-purple mb-6">
+                <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-2">4. Técnica RAIN</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                    <div class="p-2 bg-purple-50 rounded"><strong>R</strong>econocer: "Estoy sintiendo ansiedad".</div>
+                    <div class="p-2 bg-purple-50 rounded"><strong>A</strong>ceptar: Permitir sin luchar.</div>
+                    <div class="p-2 bg-purple-50 rounded"><strong>I</strong>nvestigar: Curiosidad física ¿Dónde se siente?</div>
+                    <div class="p-2 bg-purple-50 rounded"><strong>N</strong>o identificarse: "Tengo miedo, pero NO SOY miedo".</div>
+                </div>
+            </div>
+
+            <!-- 5. Flecha Descendente -->
+            <div class="card card-purple mb-6">
+                <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-2">5. Flecha Descendente (Raíz)</h3>
+                <div class="bg-gray-50 p-4 rounded text-sm space-y-2 font-mono border">
+                    <p>Pensamiento: "La amiga se alejó." -> <strong>¿Qué significa?</strong></p>
+                    <p>Interpretación: "Es por mí. Algo hice mal." -> <strong>¿Qué significa?</strong></p>
+                    <p>Miedo: "Soy malo o peligroso." -> <strong>¿Qué dice de mí?</strong></p>
+                    <p class="font-bold text-purple-700 bg-purple-100 p-2 rounded">CREENCIA: "No soy digno de amor a menos que sea perfecto."</p>
+                </div>
+            </div>
+            
+             <!-- 6. Hecho vs Opinión -->
+            <div class="card card-blue">
+                <h3 class="text-lg md:text-xl font-bold text-blue-800 mb-2">6. Análisis de Realidad</h3>
+                <div class="grid grid-cols-2 gap-4 text-sm bg-gray-50 p-3 rounded">
+                    <div>
+                        <strong class="text-blue-600 uppercase">Hecho</strong><br>
+                        Evidencia comprobable.<br><em>"El círculo es rosa."</em>
+                    </div>
+                    <div>
+                        <strong class="text-orange-600 uppercase">Opinión</strong><br>
+                        Juicio subjetivo.<br><em>"El rosa es feo."</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: ESQUEMAS -->
+        <div id="esquemas" class="section-content">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Módulo 1: Mis Esquemas (El Muro)</h2>
+            
+            <div class="card card-red mb-8">
+                <h3 class="text-xl md:text-2xl font-bold text-red-700 mb-3">Inhibición Emocional (El Muro)</h3>
+                <p class="italic text-gray-600 mb-4 text-sm">"Bloqueo de las cosas que sientes debido a la imagen que proyectas."</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-red-50 p-4 rounded">
+                        <h4 class="font-bold text-red-800 mb-2 text-sm">Pensamientos Activadores</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-700">
+                            <li>"No sé demostrar correctamente lo que siento."</li>
+                            <li>"Si te ven vulnerable, te pueden hacer algo."</li>
+                            <li>"Voy a perder el control si lo expreso."</li>
+                            <li>"Pena a que me pregunten; soy vulnerable."</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-4 rounded border">
+                        <h4 class="font-bold text-gray-800 mb-2 text-sm">Análisis Costo / Beneficio</h4>
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="text-red-600 font-bold">COSTO (Callar)</div>
+                            <div class="text-green-600 font-bold">BENEFICIO (Expresar)</div>
+                            <div>Pierdo citas, me aíslo.</div>
+                            <div>Sería libre antes.</div>
+                            <div>Culpa y castigo.</div>
+                            <div>Me percibo auténtico.</div>
+                            <div>Acumulo tensión.</div>
+                            <div>Evito la acumulación.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-700 mb-4">Otros Esquemas Identificados</h3>
+            <div class="space-y-3">
+                <div class="card"><h4 class="font-bold text-purple-700">Fracaso</h4><p class="text-sm">"Siempre fallo en todo lo que intento. No soy tan hábil."</p></div>
+                <div class="card"><h4 class="font-bold text-purple-700">Defectuosidad / Vergüenza</h4><p class="text-sm">Sentimiento de ser defectuoso, malo o inferior.</p></div>
+                <div class="card"><h4 class="font-bold text-purple-700">Dependencia / Incompetencia</h4><p class="text-sm">"No confío en mis decisiones. Necesito validación."</p></div>
+                <div class="card"><h4 class="font-bold text-purple-700">Simbiosis (Subyugación)</h4><p class="text-sm">Entregar el control. Sentir que los deseos propios son "desleales".</p></div>
+                <div class="card"><h4 class="font-bold text-purple-700">Abandono / Inestabilidad</h4><p class="text-sm">Percepción de que las relaciones terminarán inevitablemente.</p></div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: DISTORSIONES -->
+        <div id="distorsiones" class="section-content">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Módulo 2: Distorsiones Cognitivas</h2>
+            <div class="space-y-3">
+                <div class="card py-3"><h4 class="font-bold text-sm">1. Pensamiento Dicotómico (Todo o Nada)</h4><p class="text-xs text-gray-600">"Si no es perfecto, es un fracaso".</p></div>
+                <div class="card py-3"><h4 class="font-bold text-sm">2. Sobregeneralización</h4><p class="text-xs text-gray-600">"Siempre pasará esto por un solo error".</p></div>
+                <div class="card py-3"><h4 class="font-bold text-sm">3. Filtraje (Abstracción Selectiva)</h4><p class="text-xs text-gray-600">Ver solo lo negativo, ignorar lo positivo.</p></div>
+                <div class="card py-3"><h4 class="font-bold text-sm">4. Descalificación de lo Positivo</h4><p class="text-xs text-gray-600">"Fue suerte, no cuenta".</p></div>
+                <div class="card py-3"><h4 class="font-bold text-sm">5. Magnificación y Minimización</h4></div>
+                <div class="card py-3"><h4 class="font-bold text-sm">6. Razonamiento Emocional</h4><p class="text-xs text-gray-600">"Si me siento inútil, es porque soy inútil".</p></div>
+                <div class="card py-3"><h4 class="font-bold text-sm">7. Afirmaciones de "Debería"</h4><p class="text-xs text-gray-600">Reglas rígidas que generan culpa.</p></div>
+                <div class="card py-3"><h4 class="font-bold text-sm">8. Etiquetación</h4><p class="text-xs text-gray-600">"Soy un torpe" (Global).</p></div>
+                <div class="card py-3"><h4 class="font-bold text-sm">9. Personalización</h4><p class="text-xs text-gray-600">"Es mi culpa lo que hacen otros".</p></div>
+                <div class="card py-3 bg-red-50">
+                    <h4 class="font-bold text-red-800 text-sm">10. Inferencia Arbitraria (Adivinación)</h4>
+                    <ul class="list-disc list-inside text-xs text-gray-700 ml-2">
+                        <li>Lectura de mente: Creer saber lo que otros piensan.</li>
+                        <li>Catastrofismo: Imaginar el peor resultado.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('sidebar-nav');
+            menu.classList.toggle('hidden');
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.section-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(sectionId).classList.add('active');
+            
+            const navBtn = document.getElementById('nav-' + sectionId);
+            if(navBtn) navBtn.classList.add('active');
+
+            const menu = document.getElementById('sidebar-nav');
+            if (!menu.classList.contains('hidden') && window.innerWidth < 768) {
+                menu.classList.add('hidden');
+            }
+
+            const mainContent = document.getElementById('main-content');
+            mainContent.scrollTop = 0;
+            window.scrollTo(0,0);
+        }
+    </script>
+</body>
+</html>
