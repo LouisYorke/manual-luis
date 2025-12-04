@@ -24,11 +24,15 @@
         .table-row { border-bottom: 1px solid #e2e8f0; }
         .table-row:last-child { border-bottom: none; }
         
-        /* Ajuste para scroll en móvil */
-        main { scroll-margin-top: 80px; }
+        /* CORRECCIÓN IPHONE: Scroll suave y ajuste de altura */
+        main { 
+            scroll-margin-top: 80px;
+            -webkit-overflow-scrolling: touch; /* Clave para iPhone */
+        }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 h-screen flex flex-col md:flex-row overflow-hidden">
+<!-- CORRECCIÓN IPHONE: h-[100dvh] usa la altura dinámica real del móvil -->
+<body class="bg-gray-100 text-gray-800 h-[100dvh] flex flex-col md:flex-row overflow-hidden">
 
     <!-- Header / Sidebar -->
     <aside class="w-full md:w-72 bg-white shadow-xl z-50 flex flex-col flex-shrink-0 relative">
@@ -49,12 +53,14 @@
             <div onclick="showSection('distorsiones')" id="nav-distorsiones" class="nav-item p-3 flex items-center"><i class="fas fa-glasses w-8 text-center"></i> Distorsiones Cognitivas</div>
             
             <div class="p-4 mt-4 bg-gray-50 text-xs text-gray-500 text-center border-t md:block hidden">
+                Basado en "Manual Personal de TCC.pdf"
             </div>
         </nav>
     </aside>
 
     <!-- Contenido Principal -->
-    <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full relative" id="main-content">
+    <!-- CORRECCIÓN IPHONE: pb-24 añade espacio al final para asegurar scroll completo -->
+    <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full relative pb-24 md:pb-8" id="main-content">
         
         <!-- SECCIÓN 1: INICIO (MAPA) -->
         <div id="inicio" class="section-content active">
@@ -82,6 +88,18 @@
                  <div class="card border-l-4 border-red-500 p-4">
                      <div class="font-bold text-red-700">Ansiedad / Pánico</div>
                      <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Ciclo STOP + Respiración</div>
+                 </div>
+                 <div class="card border-l-4 border-red-500 p-4">
+                     <div class="font-bold text-red-700">Falta de Concentración</div>
+                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Hora inicio + Duración (Timer)</div>
+                 </div>
+                 <div class="card border-l-4 border-red-500 p-4">
+                     <div class="font-bold text-red-700">Perderse en conversaciones</div>
+                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Escucha activa</div>
+                 </div>
+                 <div class="card border-l-4 border-red-500 p-4">
+                     <div class="font-bold text-red-700">Conflicto Interpersonal</div>
+                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Técnica Sándwich / Semáforo</div>
                  </div>
             </div>
 
@@ -165,7 +183,7 @@
 
             <!-- 4. RAIN -->
             <div class="card card-purple mb-6">
-                <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-2">4. Técnica RAIN</h3>
+                <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-2">4. Técnica RAIN (Mindfulness)</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                     <div class="p-2 bg-purple-50 rounded"><strong>R</strong>econocer: "Estoy sintiendo ansiedad".</div>
                     <div class="p-2 bg-purple-50 rounded"><strong>A</strong>ceptar: Permitir sin luchar.</div>
