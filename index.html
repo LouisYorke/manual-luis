@@ -3,142 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manual Integral de Luis</title>
+    <title>Manual Integral de Luis (Modo Oscuro)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         .section-content { display: none; animation: fadeIn 0.4s ease-in-out; }
         .section-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .card { background: white; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); padding: 1.5rem; margin-bottom: 1rem; border-left: 5px solid #cbd5e1; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .card-red { border-left-color: #ef4444; }
-        .card-green { border-left-color: #10b981; }
-        .card-blue { border-left-color: #3b82f6; }
-        .card-yellow { border-left-color: #f59e0b; }
-        .card-purple { border-left-color: #8b5cf6; }
-        .nav-item { cursor: pointer; border-radius: 8px; transition: all 0.2s; }
-        .nav-item:hover { background-color: #e2e8f0; }
-        .nav-item.active { background-color: #3b82f6; color: white; font-weight: 600; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5); }
-        .table-row { border-bottom: 1px solid #e2e8f0; }
+        
+        /* Estilos de Tarjetas en Modo Oscuro */
+        .card { 
+            background: #1f2937; /* Gray-800 */
+            border-radius: 12px; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); 
+            padding: 1.5rem; 
+            margin-bottom: 1rem; 
+            border-left: 5px solid #4b5563; /* Gray-600 default */
+            transition: transform 0.2s; 
+            color: #f3f4f6; /* Gray-100 */
+        }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); }
+        
+        /* Bordes de color ajustados para fondo oscuro (más suaves/pasteles) */
+        .card-red { border-left-color: #f87171; }    /* Red-400 */
+        .card-green { border-left-color: #34d399; }  /* Emerald-400 */
+        .card-blue { border-left-color: #60a5fa; }   /* Blue-400 */
+        .card-yellow { border-left-color: #fbbf24; } /* Amber-400 */
+        .card-purple { border-left-color: #a78bfa; } /* Violet-400 */
+        
+        /* Estilos de Navegación */
+        .nav-item { cursor: pointer; border-radius: 8px; transition: all 0.2s; color: #d1d5db; /* Gray-300 */ }
+        .nav-item:hover { background-color: #374151; /* Gray-700 */ color: white; }
+        .nav-item.active { 
+            background-color: #4b5563; /* Gray-600 */ 
+            color: white; 
+            font-weight: 600; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #60a5fa; /* Acento azul */
+        }
+        
+        .table-row { border-bottom: 1px solid #374151; /* Gray-700 */ }
         .table-row:last-child { border-bottom: none; }
+        .table-row:hover { background-color: #374151; /* Gray-700 */ }
         
         /* CORRECCIÓN IPHONE: Scroll suave y ajuste de altura */
         main { 
             scroll-margin-top: 80px;
-            -webkit-overflow-scrolling: touch; /* Clave para iPhone */
+            -webkit-overflow-scrolling: touch; 
         }
+        
+        /* Scrollbar personalizada oscura */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111827; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
     </style>
 </head>
-<!-- CORRECCIÓN IPHONE: h-[100dvh] usa la altura dinámica real del móvil -->
-<body class="bg-gray-100 text-gray-800 h-[100dvh] flex flex-col md:flex-row overflow-hidden">
+<!-- Fondo muy oscuro (Gray-900) y texto claro -->
+<body class="bg-gray-900 text-gray-100 h-[100dvh] flex flex-col md:flex-row overflow-hidden">
 
     <!-- Header / Sidebar -->
-    <aside class="w-full md:w-72 bg-white shadow-xl z-50 flex flex-col flex-shrink-0 relative">
-        <div class="p-4 md:p-6 bg-blue-700 text-white flex justify-between items-center shadow-md">
+    <aside class="w-full md:w-72 bg-gray-800 shadow-xl z-50 flex flex-col flex-shrink-0 relative border-r border-gray-700">
+        <div class="p-4 md:p-6 bg-gray-900 text-white flex justify-between items-center shadow-md border-b border-gray-700">
             <div>
-                <h1 class="text-xl md:text-2xl font-bold"><i class="fas fa-book-medical mr-2"></i>Manual TCC</h1>
-                <p class="text-xs opacity-80 mt-1 hidden md:block">Herramientas, Registros y Esquemas</p>
+                <h1 class="text-xl md:text-2xl font-bold text-gray-100"><i class="fas fa-book-medical mr-2 text-blue-400"></i>Manual TCC</h1>
+                <p class="text-xs text-gray-400 mt-1 hidden md:block">Herramientas, Registros y Esquemas</p>
             </div>
-            <button onclick="toggleMenu()" class="md:hidden text-white text-2xl focus:outline-none p-2">
+            <button onclick="toggleMenu()" class="md:hidden text-gray-300 text-2xl focus:outline-none p-2 hover:text-white">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
 
-        <nav id="sidebar-nav" class="hidden md:block flex-1 overflow-y-auto p-4 space-y-2 bg-white absolute md:static w-full top-full shadow-xl md:shadow-none border-t md:border-none h-[calc(100vh-80px)] md:h-auto pb-20 md:pb-4">
-            <div onclick="showSection('inicio')" id="nav-inicio" class="nav-item active p-3 flex items-center"><i class="fas fa-map w-8 text-center"></i> Mapa: Enemigos vs Armas</div>
-            <div onclick="showSection('herramientas')" id="nav-herramientas" class="nav-item p-3 flex items-center"><i class="fas fa-tools w-8 text-center"></i> Caja de Herramientas</div>
-            <div onclick="showSection('esquemas')" id="nav-esquemas" class="nav-item p-3 flex items-center"><i class="fas fa-brain w-8 text-center"></i> Mis Esquemas (El Muro)</div>
-            <div onclick="showSection('distorsiones')" id="nav-distorsiones" class="nav-item p-3 flex items-center"><i class="fas fa-glasses w-8 text-center"></i> Distorsiones Cognitivas</div>
+        <nav id="sidebar-nav" class="hidden md:block flex-1 overflow-y-auto p-4 space-y-2 bg-gray-800 absolute md:static w-full top-full shadow-xl md:shadow-none border-t border-gray-700 md:border-none h-[calc(100vh-80px)] md:h-auto pb-20 md:pb-4">
+            <div onclick="showSection('inicio')" id="nav-inicio" class="nav-item active p-3 flex items-center"><i class="fas fa-map w-8 text-center text-blue-400"></i> Mapa: Enemigos vs Armas</div>
+            <div onclick="showSection('herramientas')" id="nav-herramientas" class="nav-item p-3 flex items-center"><i class="fas fa-tools w-8 text-center text-yellow-400"></i> Caja de Herramientas</div>
+            <div onclick="showSection('esquemas')" id="nav-esquemas" class="nav-item p-3 flex items-center"><i class="fas fa-brain w-8 text-center text-red-400"></i> Mis Esquemas (El Muro)</div>
+            <div onclick="showSection('distorsiones')" id="nav-distorsiones" class="nav-item p-3 flex items-center"><i class="fas fa-glasses w-8 text-center text-purple-400"></i> Distorsiones Cognitivas</div>
+            <div onclick="showSection('creencias')" id="nav-creencias" class="nav-item p-3 flex items-center"><i class="fas fa-shield-alt w-8 text-center text-emerald-400"></i> Reestructuración</div>
+            <div onclick="showSection('panico')" id="nav-panico" class="nav-item p-3 flex items-center"><i class="fas fa-bolt w-8 text-center text-red-400"></i> Pánico y Ansiedad</div>
+            <div onclick="showSection('comunicacion')" id="nav-comunicacion" class="nav-item p-3 flex items-center"><i class="fas fa-comments w-8 text-center text-blue-400"></i> Comunicación y Derechos</div>
+            <div onclick="showSection('tdah')" id="nav-tdah" class="nav-item p-3 flex items-center"><i class="fas fa-clock w-8 text-center text-purple-400"></i> Gestión TDAH</div>
             
-            <div class="p-4 mt-4 bg-gray-50 text-xs text-gray-500 text-center border-t md:block hidden">
-                Basado en "Manual Personal de TCC.pdf"
-            </div>
+            
         </nav>
     </aside>
 
     <!-- Contenido Principal -->
-    <!-- CORRECCIÓN IPHONE: pb-24 añade espacio al final para asegurar scroll completo -->
-    <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full relative pb-24 md:pb-8" id="main-content">
+    <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full relative pb-24 md:pb-8 bg-gray-900" id="main-content">
         
         <!-- SECCIÓN 1: INICIO (MAPA) -->
-        <div id="inicio" class="section-content active">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Mapa de Intervención Rápida</h2>
-            <p class="text-sm md:text-base text-gray-600 mb-6">Identifica el problema (Enemigo) y usa la solución (Arma) correspondiente.</p>
-            
-            <!-- Versión Móvil de la Tabla -->
-            <div class="space-y-4 md:hidden">
-                 <div class="card border-l-4 border-red-500 p-4">
-                     <div class="font-bold text-red-700">Desorganizado / Caos</div>
-                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Calendario Semanal</div>
-                 </div>
-                 <div class="card border-l-4 border-red-500 p-4">
-                     <div class="font-bold text-red-700">Procrastinación</div>
-                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Lista diaria / Visual</div>
-                 </div>
-                 <div class="card border-l-4 border-red-500 p-4">
-                     <div class="font-bold text-red-700">No decir lo que siento</div>
-                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> DEPA, RAIN, RPD</div>
-                 </div>
-                 <div class="card border-l-4 border-red-500 p-4">
-                     <div class="font-bold text-red-700">Tareas Tediosas</div>
-                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Sándwich Conductual (Agradable-Tedioso-Agradable)</div>
-                 </div>
-                 <div class="card border-l-4 border-red-500 p-4">
-                     <div class="font-bold text-red-700">Ansiedad / Pánico</div>
-                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Ciclo STOP + Respiración</div>
-                 </div>
-                 <div class="card border-l-4 border-red-500 p-4">
-                     <div class="font-bold text-red-700">Falta de Concentración</div>
-                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Hora inicio + Duración (Timer)</div>
-                 </div>
-                 <div class="card border-l-4 border-red-500 p-4">
-                     <div class="font-bold text-red-700">Perderse en conversaciones</div>
-                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Escucha activa</div>
-                 </div>
-                 <div class="card border-l-4 border-red-500 p-4">
-                     <div class="font-bold text-red-700">Conflicto Interpersonal</div>
-                     <div class="text-green-700 font-bold mt-1"><i class="fas fa-arrow-right mr-1"></i> Técnica Sándwich / Semáforo</div>
-                 </div>
-            </div>
+         <div id="inicio" class="section-content active">
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-100 mb-2">Mapa de Intervención Rápida</h2>
+    <p class="text-sm md:text-base text-gray-400 mb-6">Identifica el problema (Enemigo) y usa la solución (Arma) con su instrucción clave.</p>
+    
+    <div class="space-y-4 md:hidden">
+         <div class="card border-l-4 border-red-500 p-4">
+             <div class="font-bold text-red-400 uppercase text-xs mb-1">Caos / Desorganización</div>
+             <div class="text-green-400 font-bold text-lg mb-1">Calendario Semanal</div>
+             <p class="text-gray-400 text-sm italic">"Gestionar días en calendar. Asignar bloques."</p>
+         </div>
+         
+         <div class="card border-l-4 border-red-500 p-4">
+             <div class="font-bold text-red-400 uppercase text-xs mb-1">Procrastinación</div>
+             <div class="text-green-400 font-bold text-lg mb-1">Lista Diaria / Visual</div>
+             <p class="text-gray-400 text-sm italic">"Analizar pros/contras. Usar organizador visual."</p>
+         </div>
 
-            <!-- Tabla Desktop -->
-            <div class="hidden md:block bg-white rounded-lg shadow-lg overflow-hidden">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-blue-600 text-white">
-                            <th class="p-4 w-1/2">EL ENEMIGO (Problema)</th>
-                            <th class="p-4 w-1/2">EL ARMA (Herramienta)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="table-row bg-red-50 hover:bg-red-100"><td class="p-4 font-bold text-red-700">Desorganizado / Caos</td><td class="p-4 text-green-700 font-bold">Calendario Semanal</td></tr>
-                        <tr class="table-row hover:bg-gray-50"><td class="p-4 font-bold text-red-700">Procrastinación</td><td class="p-4 text-green-700 font-bold">Lista diaria / Organizador visual</td></tr>
-                        <tr class="table-row hover:bg-gray-50"><td class="p-4 font-bold text-red-700">Falta de concentración</td><td class="p-4 text-green-700 font-bold">Hora inicio + Tiempo duración (Timer)</td></tr>
-                        <tr class="table-row hover:bg-gray-50"><td class="p-4 font-bold text-red-700">Perderse en conversaciones</td><td class="p-4 text-green-700 font-bold">Técnica de escucha activa</td></tr>
-                        <tr class="table-row bg-red-50 hover:bg-red-100"><td class="p-4 font-bold text-red-700">No decir lo que siento</td><td class="p-4 text-green-700 font-bold">Técnicas: DEPA, RAIN, RPD</td></tr>
-                        <tr class="table-row hover:bg-gray-50"><td class="p-4 font-bold text-red-700">Tareas tediosas</td><td class="p-4 text-green-700 font-bold">Combinación de actividad Agradable + Desagradable</td></tr>
-                        <tr class="table-row hover:bg-gray-50"><td class="p-4 font-bold text-red-700">Ansiedad / Pánico</td><td class="p-4 text-green-700 font-bold">Ciclo STOP + RPD + Respiración</td></tr>
-                        <tr class="table-row hover:bg-gray-50"><td class="p-4 font-bold text-red-700">Conflicto Interpersonal</td><td class="p-4 text-green-700 font-bold">Técnica del Sándwich</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+         <div class="card border-l-4 border-red-500 p-4">
+             <div class="font-bold text-red-400 uppercase text-xs mb-1">Falta de Concentración</div>
+             <div class="text-green-400 font-bold text-lg mb-1">Timer (Inicio + Duración)</div>
+             <p class="text-gray-400 text-sm italic">"Definir hora exacta de inicio + tiempo de duración."</p>
+         </div>
+
+         <div class="card border-l-4 border-red-500 p-4">
+             <div class="font-bold text-red-400 uppercase text-xs mb-1">Perderse en Conversaciones</div>
+             <div class="text-green-400 font-bold text-lg mb-1">Escucha Activa</div>
+             <p class="text-gray-400 text-sm italic">"Enfocarse en entender, no en responder."</p>
+         </div>
+
+         <div class="card border-l-4 border-red-500 p-4">
+             <div class="font-bold text-red-400 uppercase text-xs mb-1">No decir lo que siento</div>
+             <div class="text-green-400 font-bold text-lg mb-1">DEPA / RAIN / RPD</div>
+             <p class="text-gray-400 text-sm italic">"Describir hechos, Expresar emoción, Pedir cambio."</p>
+         </div>
+
+         <div class="card border-l-4 border-red-500 p-4">
+             <div class="font-bold text-red-400 uppercase text-xs mb-1">Tareas Tediosas</div>
+             <div class="text-green-400 font-bold text-lg mb-1">Combinación de Actividades</div>
+             <p class="text-gray-400 text-sm italic">"Juntar actividad desagradable + agradable simultáneamente."</p>
+         </div>
+
+         <div class="card border-l-4 border-red-500 p-4">
+             <div class="font-bold text-red-400 uppercase text-xs mb-1">Ansiedad / Pánico</div>
+             <div class="text-green-400 font-bold text-lg mb-1">Ciclo STOP + Respiración</div>
+             <p class="text-gray-400 text-sm italic">"Detectar incomodidad física -> Frenar escalada."</p>
+         </div>
+         
+         <div class="card border-l-4 border-red-500 p-4">
+             <div class="font-bold text-red-400 uppercase text-xs mb-1">Conflicto / Crítica</div>
+             <div class="text-green-400 font-bold text-lg mb-1">Técnica Sándwich</div>
+             <p class="text-gray-400 text-sm italic">"Positivo (Empatía) -> Crítica (Breve) -> Positivo (Confianza)."</p>
+         </div>
+    </div>
+
+    <div class="hidden md:block bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-700">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-gray-700 text-gray-200 text-sm uppercase tracking-wider">
+                    <th class="p-4 w-1/3 border-b border-gray-600">EL ENEMIGO (Problema)</th>
+                    <th class="p-4 w-1/3 border-b border-gray-600">EL ARMA (Herramienta)</th>
+                    <th class="p-4 w-1/3 border-b border-gray-600">INSTRUCCIÓN CLAVE</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-300 text-sm">
+                <tr class="table-row hover:bg-gray-700 transition">
+                    <td class="p-4 font-bold text-red-400"><i class="fas fa-random mr-2"></i>Desorganizado / Caos</td>
+                    <td class="p-4 text-green-400 font-bold">Calendario Semanal</td>
+                    <td class="p-4 text-gray-400 italic">"Gestionar días en calendar. Bloques de 25 min."</td>
+                </tr>
+                <tr class="table-row hover:bg-gray-700 transition">
+                    <td class="p-4 font-bold text-red-400"><i class="fas fa-clock mr-2"></i>Procrastinación</td>
+                    <td class="p-4 text-green-400 font-bold">Lista diaria / Visual</td>
+                    <td class="p-4 text-gray-400 italic">"Organizador visual + Lista simple."</td>
+                </tr>
+                <tr class="table-row hover:bg-gray-700 transition">
+                    <td class="p-4 font-bold text-red-400"><i class="fas fa-brain mr-2"></i>Falta de concentración</td>
+                    <td class="p-4 text-green-400 font-bold">Timer (Inicio + Duración)</td>
+                    <td class="p-4 text-gray-400 italic">"Definir: Hora de inicio + Tiempo de duración."</td>
+                </tr>
+                <tr class="table-row hover:bg-gray-700 transition">
+                    <td class="p-4 font-bold text-red-400"><i class="fas fa-comments mr-2"></i>Perderse en charlas</td>
+                    <td class="p-4 text-green-400 font-bold">Escucha activa</td>
+                    <td class="p-4 text-gray-400 italic">"Centrarse en escuchar, no en lo que dirás."</td>
+                </tr>
+                <tr class="table-row hover:bg-gray-700 transition">
+                    <td class="p-4 font-bold text-red-400"><i class="fas fa-comment-slash mr-2"></i>No decir lo que siento</td>
+                    <td class="p-4 text-green-400 font-bold">DEPA, RAIN, RPD</td>
+                    <td class="p-4 text-gray-400 italic">"Describir hechos -> Expresar emoción -> Pedir."</td>
+                </tr>
+                <tr class="table-row hover:bg-gray-700 transition">
+                    <td class="p-4 font-bold text-red-400"><i class="fas fa-tasks mr-2"></i>Tareas tediosas</td>
+                    <td class="p-4 text-green-400 font-bold">Combinación de Actividades</td>
+                    <td class="p-4 text-gray-400 italic">"Juntar lo desagradable + lo agradable (al mismo tiempo)."</td>
+                </tr>
+                <tr class="table-row hover:bg-gray-700 transition">
+                    <td class="p-4 font-bold text-red-400"><i class="fas fa-bolt mr-2"></i>Ansiedad / Pánico</td>
+                    <td class="p-4 text-green-400 font-bold">Ciclo STOP + Respiración</td>
+                    <td class="p-4 text-gray-400 italic">"Detectar incomodidad -> Frenar escalada mental."</td>
+                </tr>
+                <tr class="table-row hover:bg-gray-700 transition">
+                    <td class="p-4 font-bold text-red-400"><i class="fas fa-handshake mr-2"></i>Conflicto / Crítica</td>
+                    <td class="p-4 text-green-400 font-bold">Técnica del Sándwich</td>
+                    <td class="p-4 text-gray-400 italic">"Positivo -> Crítica (Breve) -> Positivo (Cierre)."</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
         <!-- SECCIÓN 2: HERRAMIENTAS (COMPLETA) -->
         <div id="herramientas" class="section-content">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Caja de Herramientas Completa</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-100 mb-6">Caja de Herramientas Completa</h2>
 
             <!-- 1. Cuestionamiento Socrático -->
             <div class="card card-yellow mb-6">
-                <h3 class="text-lg md:text-xl font-bold text-yellow-800 mb-2">1. Cuestionamiento Socrático (El Abogado del Diablo)</h3>
-                <p class="text-sm text-gray-700 mb-4"><strong>Objetivo:</strong> No decirte "eso es mentira", sino guiarte a descubrir por ti mismo si tu pensamiento es válido.</p>
+                <h3 class="text-lg md:text-xl font-bold text-yellow-400 mb-2">1. Cuestionamiento Socrático (El Abogado del Diablo)</h3>
+                <p class="text-sm text-gray-300 mb-4"><strong>Objetivo:</strong> No decirte "eso es mentira", sino guiarte a descubrir por ti mismo si tu pensamiento es válido.</p>
                 
                 <div class="grid md:grid-cols-2 gap-4">
-                    <div class="bg-yellow-50 p-4 rounded text-sm">
-                        <h4 class="font-bold text-yellow-900 mb-2">Las 6 Preguntas para el Debate:</h4>
-                        <ol class="list-decimal list-inside space-y-2">
+                    <div class="bg-gray-700 p-4 rounded text-sm border border-gray-600">
+                        <h4 class="font-bold text-yellow-400 mb-2">Las 6 Preguntas para el Debate:</h4>
+                        <ol class="list-decimal list-inside space-y-2 text-gray-300">
                             <li>¿Cuál es la <strong>evidencia</strong> de que el pensamiento es verdadero? ¿Y de que no lo es?</li>
                             <li>¿Existe alguna <strong>otra explicación</strong> posible?</li>
                             <li>¿Qué es <strong>lo peor</strong> que podría suceder? ¿Podría soportarlo?</li>
@@ -152,139 +228,719 @@
 
             <!-- 2. Ciclo STOP y RPD -->
             <div class="card card-green mb-6">
-                <h3 class="text-lg md:text-xl font-bold text-green-800 mb-2">2. Ciclo de Intervención (STOP & RPD)</h3>
-                <p class="text-sm text-gray-600 mb-3">Para detener el "Pensamiento Automatico" (PA) antes de que escale.</p>
+                <h3 class="text-lg md:text-xl font-bold text-green-400 mb-2">2. Ciclo de Intervención (STOP & RPD)</h3>
+                <p class="text-sm text-gray-300 mb-3">Para detener el "Pensamiento Automático" (PA) antes de que escale.</p>
                 <div class="space-y-3 text-sm">
-                    <div class="flex items-start bg-green-50 p-3 rounded">
-                        <div class="bg-green-600 text-white font-bold px-2 rounded mr-3">PA</div>
-                        <div><strong>Pensamiento Automatico:</strong> Detectar la frase exacta que te altera. <em>"Me van a atacar".</em></div>
+                    <div class="flex items-start bg-gray-700 p-3 rounded border border-gray-600">
+                        <div class="bg-green-700 text-white font-bold px-2 rounded mr-3">PA</div>
+                        <div><strong class="text-green-300">Pensamiento Automático:</strong> Detectar la frase exacta que te altera. <em>"Me van a atacar".</em></div>
                     </div>
-                    <div class="flex items-start bg-red-50 p-3 rounded">
-                        <div class="bg-red-600 text-white font-bold px-2 rounded mr-3">STOP</div>
-                        <div><strong>Detenerse:</strong> Acción física o mental. Detectar la incomodidad corporal.</div>
+                    <div class="flex items-start bg-gray-700 p-3 rounded border border-gray-600">
+                        <div class="bg-red-700 text-white font-bold px-2 rounded mr-3">STOP</div>
+                        <div><strong class="text-red-300">Detenerse:</strong> Acción física o mental. Detectar la incomodidad corporal.</div>
                     </div>
-                    <div class="flex items-start bg-blue-50 p-3 rounded">
-                        <div class="bg-blue-600 text-white font-bold px-2 rounded mr-3">RPD</div>
-                        <div><strong>Respuesta Racional:</strong><br>1. <strong>Evidencia:</strong> "He sobrevivido antes."<br>2. <strong>Permiso:</strong> "Tengo permiso de estar nervioso."</div>
+                    <div class="flex items-start bg-gray-700 p-3 rounded border border-gray-600">
+                        <div class="bg-blue-700 text-white font-bold px-2 rounded mr-3">RPD</div>
+                        <div><strong class="text-blue-300">Respuesta Racional:</strong><br>1. <strong>Evidencia:</strong> "He sobrevivido antes."<br>2. <strong>Permiso:</strong> "Tengo permiso de estar nervioso."</div>
                     </div>
                 </div>
             </div>
 
             <!-- 3. DEPA -->
             <div class="card card-blue mb-6">
-                <h3 class="text-lg md:text-xl font-bold text-blue-800 mb-2">3. Técnica DEPA (Comunicación Asertiva)</h3>
+                <h3 class="text-lg md:text-xl font-bold text-blue-400 mb-2">3. Técnica DEPA (Comunicación Asertiva)</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-center text-sm">
-                    <div class="bg-blue-50 p-2 rounded border border-blue-200"><strong class="text-lg block text-blue-700">D</strong>DESCRIBIR<br><span class="text-xs">Solo hechos.</span></div>
-                    <div class="bg-blue-50 p-2 rounded border border-blue-200"><strong class="text-lg block text-blue-700">E</strong>EXPRESAR<br><span class="text-xs">"Yo siento..."</span></div>
-                    <div class="bg-blue-50 p-2 rounded border border-blue-200"><strong class="text-lg block text-blue-700">P</strong>PEDIR<br><span class="text-xs">Cambio concreto.</span></div>
-                    <div class="bg-blue-50 p-2 rounded border border-blue-200"><strong class="text-lg block text-blue-700">A</strong>ACORDAR<br><span class="text-xs">Ganar-Ganar.</span></div>
+                    <div class="bg-gray-700 p-2 rounded border border-gray-600"><strong class="text-lg block text-blue-400">D</strong>DESCRIBIR<br><span class="text-xs text-gray-400">Solo hechos.</span></div>
+                    <div class="bg-gray-700 p-2 rounded border border-gray-600"><strong class="text-lg block text-blue-400">E</strong>EXPRESAR<br><span class="text-xs text-gray-400">"Yo siento..."</span></div>
+                    <div class="bg-gray-700 p-2 rounded border border-gray-600"><strong class="text-lg block text-blue-400">P</strong>PEDIR<br><span class="text-xs text-gray-400">Cambio concreto.</span></div>
+                    <div class="bg-gray-700 p-2 rounded border border-gray-600"><strong class="text-lg block text-blue-400">A</strong>ACORDAR<br><span class="text-xs text-gray-400">Ganar-Ganar.</span></div>
                 </div>
             </div>
 
             <!-- 4. RAIN -->
             <div class="card card-purple mb-6">
-                <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-2">4. Técnica RAIN (Mindfulness)</h3>
+                <h3 class="text-lg md:text-xl font-bold text-purple-400 mb-2">4. Técnica RAIN (Mindfulness)</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                    <div class="p-2 bg-purple-50 rounded"><strong>R</strong>econocer: "Estoy sintiendo ansiedad".</div>
-                    <div class="p-2 bg-purple-50 rounded"><strong>A</strong>ceptar: Permitir sin luchar.</div>
-                    <div class="p-2 bg-purple-50 rounded"><strong>I</strong>nvestigar: Curiosidad física ¿Dónde se siente?</div>
-                    <div class="p-2 bg-purple-50 rounded"><strong>N</strong>o identificarse: "Tengo miedo, pero NO SOY miedo".</div>
+                    <div class="p-2 bg-gray-700 rounded border border-gray-600"><strong class="text-purple-300">R</strong>econocer: "Estoy sintiendo ansiedad".</div>
+                    <div class="p-2 bg-gray-700 rounded border border-gray-600"><strong class="text-purple-300">A</strong>ceptar: Permitir sin luchar.</div>
+                    <div class="p-2 bg-gray-700 rounded border border-gray-600"><strong class="text-purple-300">I</strong>nvestigar: Curiosidad física ¿Dónde se siente?</div>
+                    <div class="p-2 bg-gray-700 rounded border border-gray-600"><strong class="text-purple-300">N</strong>o identificarse: "Tengo miedo, pero NO SOY miedo".</div>
                 </div>
             </div>
 
             <!-- 5. Flecha Descendente -->
             <div class="card card-purple mb-6">
-                <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-2">5. Flecha Descendente (Raíz)</h3>
-                <div class="bg-gray-50 p-4 rounded text-sm space-y-2 font-mono border">
+                <h3 class="text-lg md:text-xl font-bold text-purple-400 mb-2">5. Flecha Descendente (Raíz)</h3>
+                <div class="bg-gray-700 p-4 rounded text-sm space-y-2 font-mono border border-gray-600">
                     <p>Pensamiento: "La amiga se alejó." -> <strong>¿Qué significa?</strong></p>
                     <p>Interpretación: "Es por mí. Algo hice mal." -> <strong>¿Qué significa?</strong></p>
                     <p>Miedo: "Soy malo o peligroso." -> <strong>¿Qué dice de mí?</strong></p>
-                    <p class="font-bold text-purple-700 bg-purple-100 p-2 rounded">CREENCIA: "No soy digno de amor a menos que sea perfecto."</p>
+                    <p class="font-bold text-purple-300 bg-gray-800 p-2 rounded border border-gray-600 mt-2">CREENCIA: "No soy digno de amor a menos que sea perfecto."</p>
                 </div>
             </div>
             
              <!-- 6. Hecho vs Opinión -->
             <div class="card card-blue">
-                <h3 class="text-lg md:text-xl font-bold text-blue-800 mb-2">6. Análisis de Realidad</h3>
-                <div class="grid grid-cols-2 gap-4 text-sm bg-gray-50 p-3 rounded">
+                <h3 class="text-lg md:text-xl font-bold text-blue-400 mb-2">6. Análisis de Realidad</h3>
+                <div class="grid grid-cols-2 gap-4 text-sm bg-gray-700 p-3 rounded border border-gray-600">
                     <div>
-                        <strong class="text-blue-600 uppercase">Hecho</strong><br>
-                        Evidencia comprobable.<br><em>"El círculo es rosa."</em>
+                        <strong class="text-blue-400 uppercase">Hecho</strong><br>
+                        Evidencia comprobable.<br><em class="text-gray-400">"El círculo es rosa."</em>
                     </div>
                     <div>
-                        <strong class="text-orange-600 uppercase">Opinión</strong><br>
-                        Juicio subjetivo.<br><em>"El rosa es feo."</em>
+                        <strong class="text-yellow-400 uppercase">Opinión</strong><br>
+                        Juicio subjetivo.<br><em class="text-gray-400">"El rosa es feo."</em>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- SECCIÓN 3: ESQUEMAS -->
-        <div id="esquemas" class="section-content">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Módulo 1: Mis Esquemas (El Muro)</h2>
+         <div id="esquemas" class="section-content">
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-100 mb-2">Módulo 1: Mis Esquemas (El Muro)</h2>
+    <p class="text-gray-400 mb-6 text-sm md:text-base">
+        Los esquemas son patrones profundos que influyen en cómo interpretamos la realidad. Aquí contrastamos lo que el esquema te dice (Viejo) contra lo que realmente es (Nuevo).
+    </p>
+    
+    <div class="card card-red mb-8">
+        <div class="flex items-center mb-3">
+            <i class="fas fa-shield-alt text-red-400 text-2xl mr-3"></i>
+            <div>
+                <h3 class="text-xl md:text-2xl font-bold text-red-400">1. Inhibición Emocional (El Muro)</h3>
+                <p class="text-xs text-gray-400 italic">"Bloqueo de sentimientos para mantener una imagen o protegerse."</p>
+            </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-gray-800 p-4 rounded border-l-4 border-red-500">
+                <h4 class="font-bold text-red-400 mb-2 text-sm uppercase">El Muro Dice (Disfuncional):</h4>
+                <ul class="list-disc list-inside text-sm space-y-2 text-gray-400">
+                    <li>"No sé demostrar lo que siento."</li>
+                    <li>"Si te ven vulnerable, te pueden hacer algo."</li>
+                    <li>"Voy a perder el control si lo expreso."</li>
+                    <li>"Pena a que me pregunten; soy vulnerable."</li>
+                </ul>
+            </div>
+
+            <div class="bg-gray-800 p-4 rounded border-l-4 border-green-500">
+                <h4 class="font-bold text-green-400 mb-2 text-sm uppercase">Realidad (Costo/Beneficio):</h4>
+                <div class="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
+                    <div class="text-red-400 font-bold border-b border-gray-600 pb-1">COSTO (Si callo)</div>
+                    <div class="text-green-400 font-bold border-b border-gray-600 pb-1">BENEFICIO (Si expreso)</div>
+                    <div class="text-gray-400 mt-1">Pierdo citas y me aíslo.</div>
+                    <div class="text-gray-300 mt-1">Sería libre antes.</div>
+                    <div class="text-gray-400">Culpa y castigo interno.</div>
+                    <div class="text-gray-300">Me percibo auténtico.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-purple mb-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+            <div class="flex items-center">
+                <i class="fas fa-chart-line text-purple-400 text-2xl mr-3"></i>
+                <div>
+                    <h3 class="text-xl font-bold text-purple-400">2. Fracaso</h3>
+                    <p class="text-xs text-gray-400 italic">"Creencia de que el fracaso es inevitable en comparación con los iguales."</p>
+                </div>
+            </div>
+            <span class="text-xs text-purple-300 bg-purple-900 px-2 py-1 rounded mt-2 md:mt-0">De Impotencia → A Potencial</span>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-gray-800 p-3 rounded border border-gray-700 opacity-80">
+                <h4 class="text-xs font-bold text-red-400 mb-2 uppercase"><i class="fas fa-times-circle mr-1"></i>Pensamiento Viejo</h4>
+                <ul class="text-sm text-gray-400 space-y-1 italic">
+                    <li>"Siempre fallo en todo lo que intento."</li>
+                    <li>"Soy torpe e incapaz, no encajo."</li>
+                    <li>"Nunca termino lo que empiezo."</li>
+                </ul>
+            </div>
             
-            <div class="card card-red mb-8">
-                <h3 class="text-xl md:text-2xl font-bold text-red-700 mb-3">Inhibición Emocional (El Muro)</h3>
-                <p class="italic text-gray-600 mb-4 text-sm">"Bloqueo de las cosas que sientes debido a la imagen que proyectas."</p>
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-red-50 p-4 rounded">
-                        <h4 class="font-bold text-red-800 mb-2 text-sm">Pensamientos Activadores</h4>
-                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-700">
-                            <li>"No sé demostrar correctamente lo que siento."</li>
-                            <li>"Si te ven vulnerable, te pueden hacer algo."</li>
-                            <li>"Voy a perder el control si lo expreso."</li>
-                            <li>"Pena a que me pregunten; soy vulnerable."</li>
-                        </ul>
+            <div class="bg-gray-800 p-3 rounded border border-gray-600">
+                <h4 class="text-xs font-bold text-green-400 mb-2 uppercase"><i class="fas fa-check-circle mr-1"></i>Nueva Creencia</h4>
+                <ul class="text-sm text-gray-300 space-y-2">
+                    <li>• No es norma fallar en todo; tengo mi propio enfoque.</li>
+                    <li>• No tengo que competir; mi progreso es mío.</li>
+                    <li>• Mis capacidades pueden ser diferentes, pero existen.</li>
+                    <li>• Intentar algo nuevo conlleva dificultad, no incapacidad.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-blue mb-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+            <div class="flex items-center">
+                <i class="fas fa-baby text-blue-400 text-2xl mr-3"></i>
+                <div>
+                    <h3 class="text-xl font-bold text-blue-400">3. Dependencia / Incompetencia</h3>
+                    <p class="text-xs text-gray-400 italic">"Creencia de ser incapaz de manejar responsabilidades sin ayuda considerable."</p>
+                </div>
+            </div>
+            <span class="text-xs text-blue-300 bg-blue-900 px-2 py-1 rounded mt-2 md:mt-0">De Miedo → A Autonomía</span>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-gray-800 p-3 rounded border border-gray-700 opacity-80">
+                <h4 class="text-xs font-bold text-red-400 mb-2 uppercase"><i class="fas fa-times-circle mr-1"></i>Pensamiento Viejo</h4>
+                <ul class="text-sm text-gray-400 space-y-1 italic">
+                    <li>"No puedo hacer nada bien sin guía."</li>
+                    <li>"No confío en mis decisiones."</li>
+                    <li>"Sin ayuda, no soy capaz de gestionar mi vida."</li>
+                </ul>
+            </div>
+
+            <div class="bg-gray-800 p-3 rounded border border-gray-600">
+                <h4 class="text-xs font-bold text-green-400 mb-2 uppercase"><i class="fas fa-check-circle mr-1"></i>Nueva Creencia</h4>
+                <ul class="text-sm text-gray-300 space-y-2">
+                    <li>• Soy capaz. Necesitar instrucciones no es un defecto.</li>
+                    <li>• Equivocarse es inevitable, no soy el único.</li>
+                    <li>• Decidir abruma porque analizo mucho, no por incapaz.</li>
+                    <li>• Actuar solo da miedo, pero da libertad.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-green mb-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+            <div class="flex items-center">
+                <i class="fas fa-users text-green-400 text-2xl mr-3"></i>
+                <div>
+                    <h3 class="text-xl font-bold text-green-400">4. Simbiosis (Vivir para otros)</h3>
+                    <p class="text-xs text-gray-400 italic">"Sentir que los deseos propios son desleales; entregar el control para evitar conflicto."</p>
+                </div>
+            </div>
+            <span class="text-xs text-green-300 bg-green-900 px-2 py-1 rounded mt-2 md:mt-0">De Lealtad Ajena → A Lealtad Propia</span>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-gray-800 p-3 rounded border border-gray-700 opacity-80">
+                <h4 class="text-xs font-bold text-red-400 mb-2 uppercase"><i class="fas fa-times-circle mr-1"></i>Pensamiento Viejo</h4>
+                <ul class="text-sm text-gray-400 space-y-1 italic">
+                    <li>"No puedo decidir sin consultar a mis padres."</li>
+                    <li>"Me siento culpable si hago algo diferente."</li>
+                    <li>"Prefiero ocultar mis verdaderos deseos."</li>
+                </ul>
+            </div>
+
+            <div class="bg-gray-800 p-3 rounded border border-gray-600">
+                <h4 class="text-xs font-bold text-green-400 mb-2 uppercase"><i class="fas fa-check-circle mr-1"></i>Nueva Creencia</h4>
+                <ul class="text-sm text-gray-300 space-y-2">
+                    <li>• Puedo guiarme por mi propio criterio y valores.</li>
+                    <li>• No está mal querer algo distinto a lo que esperan.</li>
+                    <li>• Ocultar mis deseos me aleja de mí mismo.</li>
+                    <li>• No necesito aislarme para pertenecer.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="text-lg font-bold text-gray-400 mb-4 mt-8 uppercase tracking-widest border-b border-gray-700 pb-2">Otros Esquemas (Resumen)</h3>
+    <div class="grid md:grid-cols-2 gap-4">
+        <div class="card py-3 px-4 border-l-2 border-gray-600">
+            <h4 class="font-bold text-gray-200 text-sm">Abandono / Inestabilidad</h4>
+            <p class="text-xs text-gray-400">"Nadie se queda para siempre."</p>
+        </div>
+        <div class="card py-3 px-4 border-l-2 border-gray-600">
+            <h4 class="font-bold text-gray-200 text-sm">Defectuosidad / Vergüenza</h4>
+            <p class="text-xs text-gray-400">"Hay algo mal en mí."</p>
+        </div>
+        <div class="card py-3 px-4 border-l-2 border-gray-600">
+            <h4 class="font-bold text-gray-200 text-sm">Aislamiento Social</h4>
+            <p class="text-xs text-gray-400">"Soy diferente, no pertenezco."</p>
+        </div>
+        <div class="card py-3 px-4 border-l-2 border-gray-600">
+            <h4 class="font-bold text-gray-200 text-sm">Disciplina Insuficiente</h4>
+            <p class="text-xs text-gray-400">"No tolero la frustración."</p>
+        </div>
+    </div>
+</div>
+
+        <!-- SECCIÓN 4: DISTORSIONES -->
+         <div id="distorsiones" class="section-content">
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-100 mb-2">Módulo 2: Distorsiones Cognitivas</h2>
+    <p class="text-gray-400 mb-6 text-sm md:text-base">
+        Filtros mentales que nos hacen interpretar la realidad de forma errónea. Identificar cuál estás usando es el primer paso para desactivarla.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-4">
+        
+        <div class="card border-l-4 border-purple-500 p-4">
+            <h4 class="font-bold text-purple-400 mb-1">1. Pensamiento Dicotómico (Todo o Nada)</h4>
+            <p class="text-sm text-gray-300 mb-2">Valorar los acontecimientos de forma extrema sin puntos medios.</p>
+            <div class="bg-gray-800 p-2 rounded text-xs text-gray-400 italic">
+                <i class="fas fa-quote-left mr-2 text-purple-700"></i>"Si no es perfecto, es un fracaso total."
+            </div>
+        </div>
+
+        <div class="card border-l-4 border-purple-500 p-4">
+            <h4 class="font-bold text-purple-400 mb-1">2. Sobregeneralización</h4>
+            <p class="text-sm text-gray-300 mb-2">Creer que si algo ocurre una vez, ocurrirá siempre.</p>
+            <div class="bg-gray-800 p-2 rounded text-xs text-gray-400 italic">
+                <i class="fas fa-quote-left mr-2 text-purple-700"></i>"Me rechazaron una vez -> Nunca conseguiré trabajo."
+            </div>
+        </div>
+
+        <div class="card border-l-4 border-purple-500 p-4">
+            <h4 class="font-bold text-purple-400 mb-1">3. Filtraje (Abstracción Selectiva)</h4>
+            <p class="text-sm text-gray-300 mb-2">Enfocarse solo en un detalle negativo ignorando todo lo positivo.</p>
+            <div class="bg-gray-800 p-2 rounded text-xs text-gray-400 italic">
+                <i class="fas fa-quote-left mr-2 text-purple-700"></i>"Obsesionarse con un error e ignorar 90 aciertos."
+            </div>
+        </div>
+
+        <div class="card border-l-4 border-purple-500 p-4">
+            <h4 class="font-bold text-purple-400 mb-1">4. Descalificación de lo Positivo</h4>
+            <p class="text-sm text-gray-300 mb-2">Quitar valor a las experiencias positivas o cualidades propias.</p>
+            <div class="bg-gray-800 p-2 rounded text-xs text-gray-400 italic">
+                <i class="fas fa-quote-left mr-2 text-purple-700"></i>"Eso no cuenta porque fue pura suerte."
+            </div>
+        </div>
+
+        <div class="card border-l-4 border-purple-500 p-4">
+            <h4 class="font-bold text-purple-400 mb-1">5. Magnificación y Minimización</h4>
+            <p class="text-sm text-gray-300 mb-2">Agrandar los propios errores y minimizar los propios éxitos (o viceversa con los demás).</p>
+        </div>
+
+        <div class="card border-l-4 border-purple-500 p-4">
+            <h4 class="font-bold text-purple-400 mb-1">6. Razonamiento Emocional</h4>
+            <p class="text-sm text-gray-300 mb-2">Creer que lo que sentimos es la realidad absoluta.</p>
+            <div class="bg-gray-800 p-2 rounded text-xs text-gray-400 italic">
+                <i class="fas fa-quote-left mr-2 text-purple-700"></i>"Si me siento inútil, es porque SOY inútil."
+            </div>
+        </div>
+
+        <div class="card border-l-4 border-purple-500 p-4">
+            <h4 class="font-bold text-purple-400 mb-1">7. Afirmaciones de "Debería"</h4>
+            <p class="text-sm text-gray-300 mb-2">Reglas rígidas sobre cómo debemos comportarnos. Generan culpa o ira.</p>
+            <div class="bg-gray-800 p-2 rounded text-xs text-gray-400 italic">
+                <i class="fas fa-quote-left mr-2 text-purple-700"></i>"Yo debería ser capaz de..." / "Tengo que..."
+            </div>
+        </div>
+
+        <div class="card border-l-4 border-purple-500 p-4">
+            <h4 class="font-bold text-purple-400 mb-1">8. Etiquetación</h4>
+            <p class="text-sm text-gray-300 mb-2">Ponerse etiquetas negativas globales en lugar de describir el error.</p>
+            <div class="bg-gray-800 p-2 rounded text-xs text-gray-400 italic">
+                <i class="fas fa-quote-left mr-2 text-purple-700"></i>"Soy un torpe" (Global) vs "Me tropecé" (Hecho).
+            </div>
+        </div>
+
+        <div class="card border-l-4 border-purple-500 p-4">
+            <h4 class="font-bold text-purple-400 mb-1">9. Personalización</h4>
+            <p class="text-sm text-gray-300 mb-2">Asumir la responsabilidad de eventos externos sin base lógica.</p>
+            <div class="bg-gray-800 p-2 rounded text-xs text-gray-400 italic">
+                <i class="fas fa-quote-left mr-2 text-purple-700"></i>"Mi hijo reprobó por mi culpa."
+            </div>
+        </div>
+
+        <div class="card border-l-4 border-red-500 p-4 md:col-span-2 bg-gray-800 bg-opacity-50">
+            <h4 class="font-bold text-red-400 mb-2 text-lg">10. Inferencia Arbitraria (Saltar a conclusiones)</h4>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-gray-900 p-3 rounded border border-gray-700">
+                    <strong class="text-purple-300 text-sm block mb-1">A. Lectura de Pensamiento</strong>
+                    <p class="text-xs text-gray-400">Creer saber lo que otros piensan (generalmente mal) sin evidencia.</p>
+                </div>
+                <div class="bg-gray-900 p-3 rounded border border-gray-700">
+                    <strong class="text-purple-300 text-sm block mb-1">B. Adivinación del Futuro</strong>
+                    <p class="text-xs text-gray-400">Predecir que las cosas saldrán mal inevitablemente.</p>
+                </div>
+                <div class="bg-gray-900 p-3 rounded border border-gray-700">
+                    <strong class="text-purple-300 text-sm block mb-1">C. Catastrofismo</strong>
+                    <p class="text-xs text-gray-400">Imaginar el peor resultado posible, por improbable que sea.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="creencias" class="section-content">
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-100 mb-2">Módulo 3: Reestructuración</h2>
+    <p class="text-gray-400 mb-6 text-sm md:text-base">
+        Transformando esquemas limitantes en verdades funcionales. No es "pensar positivo", es pensar de forma <strong>realista y útil</strong>.
+    </p>
+
+    <div class="space-y-6">
+        
+        <div class="card border-l-4 border-green-500 p-6">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-seedling text-2xl text-green-400 mr-4"></i>
+                <div>
+                    <h3 class="font-bold text-xl text-green-400">Fracaso: Potencial Recuperado</h3>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">De "Impotencia" a "Mis Habilidades"</p>
+                </div>
+            </div>
+            <ul class="space-y-3 text-sm md:text-base text-gray-300">
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span>No es norma fallar en todo; ejecuto con mi propio enfoque.</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span>No compito con otros, mi progreso es incomparable.</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span>Intentar algo nuevo conlleva dificultad, no incapacidad.</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span><strong>No soy incapaz</strong>, tengo mi manera de entender las cosas.</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span>Mis expectativas sobre mí son lo más importante.</span></li>
+            </ul>
+        </div>
+
+        <div class="card border-l-4 border-blue-500 p-6">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-fist-raised text-2xl text-blue-400 mr-4"></i>
+                <div>
+                    <h3 class="font-bold text-xl text-blue-400">Dependencia: Si puedo, a mi modo</h3>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">De "Miedo" a "Libertad de Elegir"</p>
+                </div>
+            </div>
+            <ul class="space-y-3 text-sm md:text-base text-gray-300">
+                <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-1 mr-2"></i> <span>Soy capaz. Necesitar instrucciones precisas no es un defecto.</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-1 mr-2"></i> <span>Equivocarme al actuar solo es inevitable, no soy el único.</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-1 mr-2"></i> <span>Analizar mucho mis decisiones es una herramienta, no una falla.</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-1 mr-2"></i> <span>Actuar solo da miedo, pero me da <strong>libertad</strong>.</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-1 mr-2"></i> <span>Tengo derecho a sentir miedo y aun así elegir.</span></li>
+            </ul>
+        </div>
+
+        <div class="card border-l-4 border-indigo-500 p-6">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-user-shield text-2xl text-indigo-400 mr-4"></i>
+                <div>
+                    <h3 class="font-bold text-xl text-indigo-400">Simbiosis: Lealtad a Mí Mismo</h3>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">De "Vivir para otros" a "Autenticidad"</p>
+                </div>
+            </div>
+            <ul class="space-y-3 text-sm md:text-base text-gray-300">
+                <li class="flex items-start"><i class="fas fa-check text-indigo-500 mt-1 mr-2"></i> <span>Escucho opiniones, pero decido según mis valores.</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-indigo-500 mt-1 mr-2"></i> <span><strong>No está mal</strong> querer algo distinto a lo que esperan de mí.</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-indigo-500 mt-1 mr-2"></i> <span>Ocultar mis deseos me aleja de mí mismo.</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-indigo-500 mt-1 mr-2"></i> <span>No necesito aislarme para pertenecer.</span></li>
+            </ul>
+        </div>
+
+        <div class="bg-gray-800 p-4 rounded-lg border border-red-500/30 mt-8">
+            <h3 class="font-bold text-lg text-red-400 mb-4"><i class="fas fa-exchange-alt mr-2"></i>Del Miedo a la Acción</h3>
+            <div class="overflow-x-auto rounded-lg shadow border border-gray-700">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-gray-700 text-gray-200 uppercase font-bold text-xs">
+                        <tr>
+                            <th class="p-3 w-1/2">⛔ Evitación (Lo que hacía)</th>
+                            <th class="p-3 w-1/2">✅ Afrontamiento (Lo nuevo)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700 text-gray-300">
+                        <tr class="hover:bg-gray-700/50"><td class="p-3">Caminar encorvado</td><td class="p-3 font-bold text-green-400">Caminar derecho</td></tr>
+                        <tr class="hover:bg-gray-700/50"><td class="p-3">Guardar mi molestia</td><td class="p-3 font-bold text-green-400">Aplicar técnica DEPA</td></tr>
+                        <tr class="hover:bg-gray-700/50"><td class="p-3">Aislarme / Inmóvil</td><td class="p-3 font-bold text-green-400">Acercarme poco a poco</td></tr>
+                        <tr class="hover:bg-gray-700/50"><td class="p-3">Huir / Ignorar</td><td class="p-3 font-bold text-green-400">Expresar espontaneidad</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="panico" class="section-content">
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-100 mb-2">Módulo 5: Mecánica de la Ansiedad</h2>
+    <p class="text-gray-400 mb-6 text-sm md:text-base">
+        Entender cómo funciona el "Modo de Peligro" es el primer paso para desactivarlo. El pánico no es un fallo cardíaco, es una <strong>falsa alarma</strong> del sistema nervioso.
+    </p>
+
+    <div class="space-y-6">
+        
+        <div class="card border-l-4 border-red-500 p-0 overflow-hidden">
+            <div class="bg-red-900/20 p-4 border-b border-red-500/30">
+                <h3 class="font-bold text-xl text-red-400"><i class="fas fa-sync-alt mr-2"></i>El Círculo Vicioso del Pánico</h3>
+                <p class="text-xs text-gray-400">Cómo una sensación física escala hasta el terror.</p>
+            </div>
+            
+            <div class="p-4 space-y-4">
+                <div class="flex items-start">
+                    <div class="bg-gray-700 text-gray-300 font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 border border-gray-600">1</div>
+                    <div>
+                        <strong class="text-red-300 block text-sm">Disparadores (El inicio)</strong>
+                        <p class="text-sm text-gray-400">Esfuerzo físico, estar solo, lugares cerrados o pensamientos intrusivos.</p>
                     </div>
-                    <div class="bg-white p-4 rounded border">
-                        <h4 class="font-bold text-gray-800 mb-2 text-sm">Análisis Costo / Beneficio</h4>
-                        <div class="grid grid-cols-2 gap-2 text-xs">
-                            <div class="text-red-600 font-bold">COSTO (Callar)</div>
-                            <div class="text-green-600 font-bold">BENEFICIO (Expresar)</div>
-                            <div>Pierdo citas, me aíslo.</div>
-                            <div>Sería libre antes.</div>
-                            <div>Culpa y castigo.</div>
-                            <div>Me percibo auténtico.</div>
-                            <div>Acumulo tensión.</div>
-                            <div>Evito la acumulación.</div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="bg-gray-700 text-gray-300 font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 border border-gray-600">2</div>
+                    <div>
+                        <strong class="text-red-300 block text-sm">Modo Alerta / Orientador</strong>
+                        <p class="text-sm text-gray-400">Tu cerebro detecta un cambio ("amenaza") interna o externa. Se activa la vigilancia.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start bg-gray-800 p-3 rounded-lg border border-red-500/30">
+                    <div class="bg-red-600 text-white font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 shadow-lg">3</div>
+                    <div>
+                        <strong class="text-red-400 block text-sm uppercase">Interpretación Catastrófica (El Error)</strong>
+                        <p class="text-sm text-gray-300 mb-2">Aquí es donde la ansiedad se vuelve pánico.</p>
+                        <div class="text-xs bg-gray-900 p-2 rounded text-gray-400 italic border-l-2 border-red-500">
+                            "¡Me va a dar un infarto!", "Voy a perder el control", "Me estoy volviendo loco".
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <h3 class="text-xl font-bold text-gray-700 mb-4">Otros Esquemas Identificados</h3>
-            <div class="space-y-3">
-                <div class="card"><h4 class="font-bold text-purple-700">Fracaso</h4><p class="text-sm">"Siempre fallo en todo lo que intento. No soy tan hábil."</p></div>
-                <div class="card"><h4 class="font-bold text-purple-700">Defectuosidad / Vergüenza</h4><p class="text-sm">Sentimiento de ser defectuoso, malo o inferior.</p></div>
-                <div class="card"><h4 class="font-bold text-purple-700">Dependencia / Incompetencia</h4><p class="text-sm">"No confío en mis decisiones. Necesito validación."</p></div>
-                <div class="card"><h4 class="font-bold text-purple-700">Simbiosis (Subyugación)</h4><p class="text-sm">Entregar el control. Sentir que los deseos propios son "desleales".</p></div>
-                <div class="card"><h4 class="font-bold text-purple-700">Abandono / Inestabilidad</h4><p class="text-sm">Percepción de que las relaciones terminarán inevitablemente.</p></div>
-            </div>
-        </div>
+                <div class="flex items-start">
+                    <div class="bg-gray-700 text-gray-300 font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 border border-gray-600">4</div>
+                    <div>
+                        <strong class="text-red-300 block text-sm">Escalada de Síntomas (Hipervigilancia)</strong>
+                        <p class="text-sm text-gray-400">Al asustarte, tu corazón late más rápido. Al notarlo, te asustas más. Se confirma la "amenaza".</p>
+                    </div>
+                </div>
 
-        <!-- SECCIÓN 4: DISTORSIONES -->
-        <div id="distorsiones" class="section-content">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Módulo 2: Distorsiones Cognitivas</h2>
-            <div class="space-y-3">
-                <div class="card py-3"><h4 class="font-bold text-sm">1. Pensamiento Dicotómico (Todo o Nada)</h4><p class="text-xs text-gray-600">"Si no es perfecto, es un fracaso".</p></div>
-                <div class="card py-3"><h4 class="font-bold text-sm">2. Sobregeneralización</h4><p class="text-xs text-gray-600">"Siempre pasará esto por un solo error".</p></div>
-                <div class="card py-3"><h4 class="font-bold text-sm">3. Filtraje (Abstracción Selectiva)</h4><p class="text-xs text-gray-600">Ver solo lo negativo, ignorar lo positivo.</p></div>
-                <div class="card py-3"><h4 class="font-bold text-sm">4. Descalificación de lo Positivo</h4><p class="text-xs text-gray-600">"Fue suerte, no cuenta".</p></div>
-                <div class="card py-3"><h4 class="font-bold text-sm">5. Magnificación y Minimización</h4></div>
-                <div class="card py-3"><h4 class="font-bold text-sm">6. Razonamiento Emocional</h4><p class="text-xs text-gray-600">"Si me siento inútil, es porque soy inútil".</p></div>
-                <div class="card py-3"><h4 class="font-bold text-sm">7. Afirmaciones de "Debería"</h4><p class="text-xs text-gray-600">Reglas rígidas que generan culpa.</p></div>
-                <div class="card py-3"><h4 class="font-bold text-sm">8. Etiquetación</h4><p class="text-xs text-gray-600">"Soy un torpe" (Global).</p></div>
-                <div class="card py-3"><h4 class="font-bold text-sm">9. Personalización</h4><p class="text-xs text-gray-600">"Es mi culpa lo que hacen otros".</p></div>
-                <div class="card py-3 bg-red-50">
-                    <h4 class="font-bold text-red-800 text-sm">10. Inferencia Arbitraria (Adivinación)</h4>
-                    <ul class="list-disc list-inside text-xs text-gray-700 ml-2">
-                        <li>Lectura de mente: Creer saber lo que otros piensan.</li>
-                        <li>Catastrofismo: Imaginar el peor resultado.</li>
-                    </ul>
+                <div class="flex items-start bg-gray-800 p-3 rounded-lg border border-yellow-500/30">
+                    <div class="bg-yellow-600 text-white font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0">5</div>
+                    <div>
+                        <strong class="text-yellow-400 block text-sm uppercase">La Trampa: Conductas de Seguridad</strong>
+                        <p class="text-sm text-gray-400 mb-2">Huir, tomar pastillas, ir al hospital, llamar a alguien para que te "salve".</p>
+                        <p class="text-xs text-yellow-200 bg-yellow-900/30 p-2 rounded">
+                            <strong>¿Por qué es malo?</strong> Evita que tu cerebro aprenda que <em>no ibas a morir</em>. Refuerza la idea de que te salvaste "porque huiste", manteniendo el miedo vivo.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <div class="card border-l-4 border-green-500 p-6">
+            <h3 class="font-bold text-xl text-green-400 mb-4"><i class="fas fa-check-circle mr-2"></i>Protocolo de Desactivación</h3>
+            
+            <div class="grid md:grid-cols-3 gap-4 text-center">
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <i class="fas fa-hand-paper text-3xl text-red-400 mb-2"></i>
+                    <h4 class="font-bold text-gray-200">1. ALTO (STOP)</h4>
+                    <p class="text-xs text-gray-400">No corras. Si huyes, el miedo gana. Quédate donde estás.</p>
+                </div>
+                
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <i class="fas fa-lungs text-3xl text-blue-400 mb-2"></i>
+                    <h4 class="font-bold text-gray-200">2. RESPIRA</h4>
+                    <p class="text-xs text-gray-400">Exhala lento. La hiperventilación causa los síntomas físicos.</p>
+                </div>
+                
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <i class="fas fa-brain text-3xl text-purple-400 mb-2"></i>
+                    <h4 class="font-bold text-gray-200">3. RACIONALIZA</h4>
+                    <p class="text-xs text-gray-400">"Es solo adrenalina. Es incómodo, pero NO es peligroso. Pasará en unos minutos."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-l-4 border-blue-500 p-4">
+            <h4 class="font-bold text-blue-400 mb-2">Herramienta Rápida: Hecho vs. Opinión</h4>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+                <div class="bg-gray-800 p-3 rounded">
+                    <strong class="block text-gray-500 uppercase text-xs">Sensación (Hecho)</strong>
+                    <span class="text-gray-200">"Mi corazón late rápido."</span>
+                </div>
+                <div class="bg-gray-800 p-3 rounded">
+                    <strong class="block text-red-400 uppercase text-xs">Interpretación (Opinión/Miedo)</strong>
+                    <span class="text-gray-200">"¡Es un ataque cardíaco!"</span>
+                </div>
+            </div>
+            <p class="text-xs text-gray-400 mt-2 text-center">Trata la interpretación como una <strong>hipótesis</strong>, no como una realidad.</p>
+        </div>
+
+    </div>
+</div>
+<div id="comunicacion" class="section-content">
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-100 mb-2">Módulo 6: Comunicación Asertiva</h2>
+    <p class="text-gray-400 mb-6 text-sm md:text-base">
+        Herramientas para pedir cambios, poner límites o expresar molestia sin ser agresivo ni pasivo.
+    </p>
+
+    <div class="space-y-8">
+        
+        <div class="card border-l-4 border-blue-500 p-0 overflow-hidden">
+            <div class="bg-blue-900/20 p-4 border-b border-blue-500/30">
+                <h3 class="font-bold text-xl text-blue-400"><i class="fas fa-comment-dots mr-2"></i>Técnica DEPA</h3>
+                <p class="text-xs text-gray-400">Úsala para resolver conflictos interpersonales con claridad.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-700">
+                <div class="p-4 hover:bg-gray-800/50 transition">
+                    <strong class="text-2xl text-blue-500 block mb-1">D</strong>
+                    <span class="font-bold text-gray-200 text-sm uppercase">Describir</span>
+                    <p class="text-xs text-gray-400 mt-2">Relata solo los <strong>hechos objetivos</strong> (lo que grabaría una cámara). Sin juicios ni interpretaciones.</p>
+                </div>
+                <div class="p-4 hover:bg-gray-800/50 transition">
+                    <strong class="text-2xl text-blue-500 block mb-1">E</strong>
+                    <span class="font-bold text-gray-200 text-sm uppercase">Expresar</span>
+                    <p class="text-xs text-gray-400 mt-2">Habla desde ti: <em>"Me siento [Emoción] cuando..."</em>. Valida tus sentimientos sin atacar.</p>
+                </div>
+                <div class="p-4 hover:bg-gray-800/50 transition">
+                    <strong class="text-2xl text-blue-500 block mb-1">P</strong>
+                    <span class="font-bold text-gray-200 text-sm uppercase">Pedir</span>
+                    <p class="text-xs text-gray-400 mt-2">Petición concreta de cambio de conducta o aclaración. <em>"...me gustaría que..."</em></p>
+                </div>
+                <div class="p-4 hover:bg-gray-800/50 transition">
+                    <strong class="text-2xl text-blue-500 block mb-1">A</strong>
+                    <span class="font-bold text-gray-200 text-sm uppercase">Acordar</span>
+                    <p class="text-xs text-gray-400 mt-2">Negociar un Ganar-Ganar. Establecer consecuencias positivas o negativas.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-l-4 border-green-500 p-6">
+            <h3 class="font-bold text-xl text-green-400 mb-4"><i class="fas fa-hamburger mr-2"></i>El Sándwich (Feedback)</h3>
+            <p class="text-sm text-gray-400 mb-4">El secreto para hacer una crítica o pedir un cambio "suavizando" el golpe sin perder firmeza.</p>
+
+            <div class="space-y-3">
+                <div class="bg-green-900/20 p-3 rounded-t-lg border-t-4 border-green-500/50">
+                    <strong class="text-green-200 text-sm"><i class="fas fa-bread-slice mr-2"></i>PAN (Positivo/Empatía)</strong>
+                    <p class="text-sm text-gray-300 italic mt-1">"Entiendo que has tenido mucho trabajo y valoro tu esfuerzo..."</p>
+                </div>
+                
+                <div class="bg-red-900/20 p-4 border-x-4 border-red-500/50 mx-2">
+                    <strong class="text-red-300 text-sm"><i class="fas fa-exclamation-circle mr-2"></i>CARNE (La Crítica/Nuclear)</strong>
+                    <p class="text-sm text-gray-300 italic mt-1">"...sin embargo, necesito que los reportes estén listos a las 5 PM porque..."</p>
+                </div>
+
+                <div class="bg-green-900/20 p-3 rounded-b-lg border-b-4 border-green-500/50">
+                    <strong class="text-green-200 text-sm"><i class="fas fa-bread-slice mr-2"></i>PAN (Cierre Confianza)</strong>
+                    <p class="text-sm text-gray-300 italic mt-1">"...sé que con tu capacidad podrás organizarte para la próxima."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-l-4 border-purple-500 p-0">
+            <div class="p-4 bg-gray-800 border-b border-gray-700">
+                <h3 class="font-bold text-xl text-purple-400"><i class="fas fa-scroll mr-2"></i>Mis 20 Derechos Asertivos</h3>
+                <p class="text-xs text-gray-400 mt-1">Tienes derecho a ejercer estos puntos sin culpa.</p>
+            </div>
+            
+            <div class="h-80 overflow-y-auto p-4 custom-scrollbar bg-gray-900/50 rounded-b-lg">
+                <ul class="space-y-2 text-sm text-gray-300">
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">1.</span> Derecho a pensar de manera propia y diferente.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">2.</span> Derecho a actuar diferente a como los demás desearían.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">3.</span> Derecho a rechazar peticiones sin culpa.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">4.</span> Derecho a detenerme y pensar antes de actuar.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">5.</span> Derecho a cambiar de opinión.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">6.</span> Derecho a hacer peticiones (aceptando un NO).</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">7.</span> Derecho a decir NO.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">8.</span> Derecho a pedir información.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">9.</span> Derecho a aceptar y rechazar críticas.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">10.</span> Derecho a elogiar y recibir elogios.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">11.</span> Derecho a equivocarme.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">12.</span> Derecho a cometer errores y ser responsable de ellos.</li>
+                    <li class="flex items-start bg-purple-900/30 p-2 rounded -ml-2 w-full"><span class="text-purple-400 font-bold mr-2">13.</span> <strong class="text-purple-200">Derecho a NO SABER algo.</strong></li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">14.</span> Derecho a expresar mis auténticos sentimientos.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">15.</span> Derecho a estar solo cuando así lo elija.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">16.</span> Derecho a obtener aquello por lo que pago.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">17.</span> Derecho a no justificarme ante los demás.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">18.</span> Derecho a decidir si satisfago expectativas o intereses propios.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">19.</span> Derecho a pedir aclaración.</li>
+                    <li class="flex items-start"><span class="text-purple-500 font-bold mr-2">20.</span> Derecho a pedir ayuda o apoyo emocional.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="tdah" class="section-content">
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-100 mb-2">Módulo 7: Gestión TDAH y Tiempo</h2>
+    <p class="text-gray-400 mb-6 text-sm md:text-base">
+        Estrategias para combatir la "ceguera del tiempo", la procrastinación y el caos organizacional.
+    </p>
+
+    <div class="space-y-8">
+
+        <div class="card border-l-4 border-blue-500 p-6">
+            <h3 class="font-bold text-xl text-blue-400 mb-4"><i class="fas fa-th-large mr-2"></i>Matriz de Eisenhower</h3>
+            <p class="text-sm text-gray-400 mb-4">No todo lo urgente es importante. Prioriza según el valor real.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+                
+                <div class="bg-red-900/20 p-4 rounded-lg border border-red-500/30">
+                    <strong class="text-red-400 block text-lg mb-1">1. ¡HAZLO YA!</strong>
+                    <span class="text-xs uppercase font-bold text-gray-400 tracking-wider">Urgente + Importante</span>
+                    <p class="text-sm text-gray-300 mt-2">Crisis, fechas límite, problemas apremiantes.</p>
+                </div>
+
+                <div class="bg-green-900/20 p-4 rounded-lg border-2 border-green-500/50 relative">
+                    <div class="absolute top-0 right-0 bg-green-600 text-white text-xs px-2 py-1 rounded-bl">¡CLAVE!</div>
+                    <strong class="text-green-400 block text-lg mb-1">2. PLANIFICA</strong>
+                    <span class="text-xs uppercase font-bold text-gray-400 tracking-wider">No Urgente + Importante</span>
+                    <p class="text-sm text-gray-300 mt-2">Salud, crecimiento, proyectos a largo plazo. <strong>Aquí está el bienestar.</strong></p>
+                </div>
+
+                <div class="bg-yellow-900/20 p-4 rounded-lg border border-yellow-500/30">
+                    <strong class="text-yellow-400 block text-lg mb-1">3. DELEGA / LIMITA</strong>
+                    <span class="text-xs uppercase font-bold text-gray-400 tracking-wider">Urgente + No Importante</span>
+                    <p class="text-sm text-gray-300 mt-2">Interrupciones, llamadas, urgencias de otros.</p>
+                </div>
+
+                <div class="bg-gray-700/30 p-4 rounded-lg border border-gray-600">
+                    <strong class="text-gray-300 block text-lg mb-1">4. ELIMINA</strong>
+                    <span class="text-xs uppercase font-bold text-gray-500 tracking-wider">No Urgente + No Importante</span>
+                    <p class="text-sm text-gray-400 mt-2">Redes sociales excesivas, pérdidas de tiempo.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-l-4 border-purple-500 p-0 overflow-hidden">
+            <div class="p-4 bg-purple-900/20 border-b border-purple-500/30">
+                <h3 class="font-bold text-xl text-purple-400"><i class="fas fa-history mr-2"></i>Auditoría de Tiempo</h3>
+                <p class="text-xs text-gray-400">Combatir la "falacia de planificación". Las cosas tardan más de lo que crees.</p>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-gray-800 text-gray-400 uppercase font-bold text-xs">
+                        <tr>
+                            <th class="p-4">Actividad</th>
+                            <th class="p-4">Estimado</th>
+                            <th class="p-4">Real</th>
+                            <th class="p-4">Diferencia</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700 text-gray-300 bg-gray-900/40">
+                        <tr>
+                            <td class="p-4">Bañarse</td>
+                            <td class="p-4 text-gray-500">15 min</td>
+                            <td class="p-4 font-bold">30 min</td>
+                            <td class="p-4 text-red-400">+15 min</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4">Traslado</td>
+                            <td class="p-4 text-gray-500">20 min</td>
+                            <td class="p-4 font-bold">25 min</td>
+                            <td class="p-4 text-red-400">+5 min</td>
+                        </tr>
+                        <tr class="bg-red-900/10">
+                            <td class="p-4 font-bold text-white">Hacer Tarea Compleja</td>
+                            <td class="p-4 text-gray-500">1 hora</td>
+                            <td class="p-4 font-bold text-white">3h 10m</td>
+                            <td class="p-4 text-red-400 font-bold">+2h 10m</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-4 bg-gray-800 border-t border-gray-700 text-center">
+                <p class="text-sm text-purple-300 italic"><i class="fas fa-lightbulb mr-2"></i><strong>Conclusión:</strong> Existe gran discrepancia en tareas complejas. Ajustar agenda futura dando el <strong>doble de margen</strong>.</p>
+            </div>
+        </div>
+
+        <div class="card border-l-4 border-green-500 p-6">
+            <h3 class="font-bold text-xl text-green-400 mb-4"><i class="fas fa-puzzle-piece mr-2"></i>Estrategias TDAH</h3>
+            <ul class="space-y-4">
+                <li class="flex items-start bg-gray-800 p-3 rounded-lg border border-gray-700">
+                    <div class="bg-green-900 text-green-400 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mr-3 mt-1"><i class="fas fa-robot"></i></div>
+                    <div>
+                        <strong class="text-green-400 block">Minirutinas / Automatización</strong>
+                        <p class="text-sm text-gray-400">Crea secuencias de pasos fijos para no gastar "energía de decisión" en cosas básicas.</p>
+                    </div>
+                </li>
+                <li class="flex items-start bg-gray-800 p-3 rounded-lg border border-gray-700">
+                    <div class="bg-blue-900 text-blue-400 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mr-3 mt-1"><i class="fas fa-eye"></i></div>
+                    <div>
+                        <strong class="text-blue-400 block">Externalizar (Hacerlo Visual)</strong>
+                        <p class="text-sm text-gray-400">Si no está en el calendario o en una lista visible, <strong>no existe</strong>. Usa alarmas y pizarrones.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
     </main>
 
     <script>
